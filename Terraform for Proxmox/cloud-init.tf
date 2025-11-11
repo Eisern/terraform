@@ -57,7 +57,7 @@ resource "proxmox_vm_qemu" "cloud-init" {
     replicate = true
   }
 
-  # cloud-init диск (аналог твоего ide0: cloudinit)
+  # cloud-init диск (аналог ide0: cloudinit)
   disk {
     slot    = "scsi1"
     type    = "cloudinit"
