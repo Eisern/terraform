@@ -1,0 +1,59 @@
+variable "proxmox_api_url" {
+    type = string
+}
+
+variable "proxmox_api_token_id" {
+    type = string
+}
+
+variable "proxmox_api_token_secret" {
+    type = string
+}
+
+variable vm_config {
+    type = map(object({
+        name        = string
+        vm_id       = number
+        cores       = number
+        memory      = number
+        vm_state    = string
+        onboot      = bool
+        startup     = string
+        ipconfig    = string
+        bridge      = string
+        network_tag = number
+        ciuser      = string
+        cipassword  = string
+    }))
+    default = {
+        "VM-NAME-01" = {
+            vm_id       = 101
+            name        = "VM-NAME-01"
+            cores       = 2
+            memory      = 3072
+            vm_state    = "stopped"
+            onboot      = true
+            startup     = "order=2"
+            ipconfig    = "ip=10.10.10.10/24,gw=10.10.10.1"
+            bridge      = "vmbr0"
+            network_tag = 0
+            ciuser      = "имя_пользователя_внутри_VM"
+            cipassword  = "пароль_этого_пользователя"
+        }
+
+        "VM-NAME-02" = {
+            vm_id       = 102
+            name        = "VM-NAME-02"
+            cores       = 2
+            memory      = 3072
+            vm_state    = "stopped"
+            onboot      = true
+            startup     = "order=2"
+            ipconfig    = "ip=10.10.10.10/24,gw=10.10.10.1"
+            bridge      = "vmbr0"
+            network_tag = 0
+            ciuser      = "имя_пользователя_внутри_VM"
+            cipassword  = "пароль_этого_пользователя"
+        }
+    }
+}

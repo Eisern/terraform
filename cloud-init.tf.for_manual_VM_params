@@ -1,0 +1,66 @@
+resource "proxmox_vm_qemu" "cloud-init" {
+  for_each    = var.vm_config
+  name        = each.value.name
+  vmid        = each.value.vm_id
+  target_node = "NODE-NAME"
+
+  clone      = "CLOUD-INIT-TEMPLATE-NAME-IN-PROXMOX"
+  full_clone = true
+
+  agent   = 1
+  scsihw  = "virtio-scsi-single"
+  os_type = "cloud-init"
+  bootdisk = "scsi0"
+  boot     = "order=scsi0"
+
+  memory = each.value.memory
+
+  vm_state = each.value.vm_state
+  onboot   = each.value.onboot
+  startup  = each.value.startup
+
+  # cloud-init сеть и учётка
+  ipconfig0  = each.value.ipconfig
+  skip_ipv6  = true
+
+  ciuser     = each.value.ciuser
+  cipassword = each.value.cipassword
+
+
+  sshkeys = data.local_file.ssh_pubkey.content
+
+  cpu {
+    type    = "x86-64-v2-AES"
+    sockets = 1
+    cores   = each.value.cores
+  }
+
+  serial {
+    id   = 0
+    type = "socket"
+  }
+
+  network {
+    id       = 0
+    model    = "virtio"
+    bridge   = each.value.bridge
+    firewall = false
+    tag      = each.value.network_tag
+  }
+
+  # основной диск
+  disk {
+    slot      = "scsi0"               
+    size      = "40G"
+    type      = "disk"
+    storage   = "STORE-NAME-IN-PROXMOX"
+    replicate = true
+  }
+
+  # cloud-init диск (аналог ide0: cloudinit)
+  disk {
+    slot    = "scsi1"
+    type    = "cloudinit"
+    storage = "STORE-NAME-IN-PROXMOX"
+  }
+}
