@@ -82,8 +82,8 @@ locals {
       onboot      = true
       bridge      = "vmbr0"
       ipconfig    = format("ip=10.10.10.%d/24,gw=10.10.10.1", 247 + i)					#с какого IP-адреса начинать раздачу для создаваемых машин (в данном случае-раздача с 10.10.10.248)
-      ciuser      = "ubuntu"
-      cipassword  = "ubuntu"
+      ciuser      = "имя_пользователя_внутри_VM"
+      cipassword  = "пароль_этого_пользователя"
       network_tag = 0
     }
   }
