@@ -2,9 +2,9 @@ resource "proxmox_vm_qemu" "cloud-init" {
   for_each    = local.all_vms
   name        = each.value.name
   vmid        = each.value.vm_id
-  target_node = "NODE-NAME"
+  target_node = "NODE-NAME"                                                       #имя самого Proxmox-кластера
 
-  clone      = "CLOUD-INIT-TEMPLATE-NAME-IN-PROXMOX"
+  clone      = "CLOUD-INIT-TEMPLATE-NAME-IN-PROXMOX"                              #указать ИМЯ базового cloud-init шаблона образа
   full_clone = true
 
   agent   = 1
@@ -27,7 +27,7 @@ resource "proxmox_vm_qemu" "cloud-init" {
   cipassword = each.value.cipassword
 
 
-  sshkeys = data.local_file.ssh_pubkey.content
+  sshkeys = data.local_file.ssh_pubkey.content                                  #указание что нужно взять SSH ключи
 
   cpu {
     type    = "x86-64-v2-AES"
@@ -53,7 +53,7 @@ resource "proxmox_vm_qemu" "cloud-init" {
     slot      = "scsi0"               
     size      = "40G"
     type      = "disk"
-    storage   = "STORE-NAME-IN-PROXMOX"
+    storage   = "STORE-NAME-IN-PROXMOX"                                        #имя дискового массива в Proxmox где должны лежать эти виртуалки
     replicate = true
   }
 
@@ -73,7 +73,7 @@ locals {
 
   # автогенерация пачки однотипных ВМ (например, 5 штук)
   generated_vms = {
-    for i in range(1, 6) : format("vm-%02d", i) => {
+    for i in range(1, 6) : format("vm-%02d", i) => {                            #задать количество машин (здесь создастся 3) с названием vm-01/02/03
       vm_id       = 200 + i
       name        = format("vm-%02d", i)
       cores       = 2
