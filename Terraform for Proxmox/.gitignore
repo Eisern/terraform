@@ -1,0 +1,14 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Локальные креды и ключи
+*.auto.tfvars
+!*.auto.tfvars.example
+ssh_pub.pub
+*.pem
