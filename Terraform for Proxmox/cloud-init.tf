@@ -61,7 +61,7 @@ resource "proxmox_vm_qemu" "cloud-init" {
   disk {
     slot    = "scsi1"
     type    = "cloudinit"
-    storage = "store"
+    storage = "STORE-NAME-IN-PROXMOX"
   }
 }
 
