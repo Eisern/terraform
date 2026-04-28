@@ -116,20 +116,3 @@ Terraform for Proxmox/
                           │
                    gw 10.10.10.1
 ```
-
-## Зачем
-
-Proxmox — платформа моего homelab. K8s-ноды иногда нужно пересобрать с нуля,
-кликать через UI — медленно и легко ошибиться. Этот манифест разворачивает
-5 одинаковых нод за ~3-5 минут одной `terraform apply`, cloud-init
-подготавливает их к подключению в кластер (hostname, сеть, SSH-ключи).
-
-## TODO
-
-- [ ] Вынести `credentials.auto.tfvars` из репо, заменить на `.example`
-- [ ] Добавить `.gitignore` (`.terraform/`, `terraform.tfstate*`, `ssh_pub.pub`, `*.auto.tfvars`)
-- [ ] Зафиксировать `terraform.required_version`
-- [ ] Storage cloud-init диска вынести в переменную (сейчас в `cloud-init.tf` захардкожен `"store"`)
-- [ ] Объединить два режима в один набор файлов через модули + флаг `var.generated_count`
-- [ ] Добавить `outputs.tf` — возвращать IP/имена созданных ВМ для последующего Ansible-inventory
-- [ ] Обновить provider до стабильной версии (сейчас `3.0.2-rc05`)
