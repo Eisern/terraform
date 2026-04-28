@@ -21,14 +21,14 @@
 **Пакетный + кастомные** (`main.tf` + `variables.tf` + `cloud-init.tf`)
 Авто-генерация однотипных нод (по умолчанию 5 штук с именами `vm-01..vm-05`
 и IP `10.10.10.248..252`). Дополнительно через `var.vm_config` можно описать
-уникальные ВМ — при пересечении имён они перетирают сгенерированные.
+уникальные ВМ - при пересечении имён они перетирают сгенерированные.
 Удобно для k8s-кластера + одной-двух не-кластерных ВМ.
 
 **Только кастомные** (`*.for_manual_VM_params`)
 Без авто-генерации: каждая ВМ описана отдельно в `vm_config`.
 Удобно для разнородной инфраструктуры (LB / DB / app с разными ресурсами).
 
-Чтобы переключиться — переименовать пары файлов местами.
+Чтобы переключиться - переименовать пары файлов местами.
 
 ## Требования
 
@@ -67,10 +67,10 @@ Terraform for Proxmox/
 3. Заполнить `credentials.auto.tfvars` (URL Proxmox, API token id/secret).
 
 4. В `cloud-init.tf` подставить под свою инсталляцию:
-   - `target_node` — имя ноды Proxmox-кластера
-   - `clone` — имя cloud-init шаблона
-   - `storage` в `disk` — имя дискового storage
-   - в `generated_vms` — количество и стартовый IP
+   - `target_node` - имя ноды Proxmox-кластера
+   - `clone` - имя cloud-init шаблона
+   - `storage` в `disk` - имя дискового storage
+   - в `generated_vms` - количество и стартовый IP
 
 5. Применить:
    ```bash
@@ -83,18 +83,18 @@ Terraform for Proxmox/
 
 | Поле          | Тип    | По умолчанию | Назначение |
 |---------------|--------|--------------|------------|
-| `name`        | string | —            | Имя ВМ в Proxmox |
-| `vm_id`       | number | —            | VMID |
-| `cores`       | number | —            | vCPU |
-| `memory`      | number | —            | RAM, МБ |
+| `name`        | string | -            | Имя ВМ в Proxmox |
+| `vm_id`       | number | -            | VMID |
+| `cores`       | number | -            | vCPU |
+| `memory`      | number | -            | RAM, МБ |
 | `vm_state`    | string | `"stopped"`  | `running` / `stopped` |
 | `onboot`      | bool   | `true`       | Автостарт при загрузке хоста |
-| `startup`     | string | —            | Порядок старта, например `"order=2"` |
-| `ipconfig`    | string | —            | `"ip=X.X.X.X/24,gw=X.X.X.1"` |
+| `startup`     | string | -            | Порядок старта, например `"order=2"` |
+| `ipconfig`    | string | -            | `"ip=X.X.X.X/24,gw=X.X.X.1"` |
 | `bridge`      | string | `"vmbr0"`    | Сетевой бридж |
 | `network_tag` | number | `0`          | VLAN tag |
-| `ciuser`      | string | —            | Cloud-init user |
-| `cipassword`  | string | —            | Cloud-init password (основной доступ — по SSH-ключу) |
+| `ciuser`      | string | -            | Cloud-init user |
+| `cipassword`  | string | -            | Cloud-init password (основной доступ - по SSH-ключу) |
 
 ## Что разворачивается (типовая инсталляция на 5 нод)
 
