@@ -116,5 +116,3 @@ Terraform for Proxmox/
                           │
                    gw 10.10.10.1
 ```
-
-PUSHED BAD LINE
