@@ -116,3 +116,9 @@ Terraform for Proxmox/
                           │
                    gw 10.10.10.1
 ```
+
+
+
+## Git practice
+
+This line was added from feature/readme-practice branch.
